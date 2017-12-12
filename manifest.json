@@ -20,7 +20,25 @@
 		"*://www.youtube.com/*",
 		
 		"webRequest",
-		"webRequestBlocking"
-	]
+		"webRequestBlocking",
+
+		"storage"
+	],
+
+	"browser_action": {
+		"default_icon": {
+			"48": "icons/icon48.png",
+			"96": "icons/icon96.png"
+		},
+		"default_popup": "settings/settings.html"
+	},
+
+	"options_ui": {
+		"page": "settings/settings.html"
+	},
+
+	"applications": {
+		"gecko": {"id": "{62d53800-1795-4543-b032-d5ad70a1d6f0}"}
+	}
 	
 }
