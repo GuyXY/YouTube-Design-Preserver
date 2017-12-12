@@ -1,0 +1,26 @@
+{
+	"manifest_version": 2,
+	"name": "__MSG_extName__",
+	"version": "1.0.0",
+	
+	"description": "__MSG_extDesc__",
+	"default_locale": "en",
+	
+	"icons": {
+		"48": "icons/icon48.png",
+		"96": "icons/icon96.png"
+	},
+	
+	"background": {
+		"scripts": ["bgscript.js"]
+	},
+	
+	"permissions": [
+		"*://youtube.com/*",
+		"*://www.youtube.com/*",
+		
+		"webRequest",
+		"webRequestBlocking"
+	]
+	
+}
