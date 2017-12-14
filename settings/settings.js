@@ -1,19 +1,16 @@
 //set the labels values
-document.getElementById("oldLayoutLabel").innerHTML = browser.i18n.getMessage("oldLayout");
-document.getElementById("darkModeLabel").innerHTML = browser.i18n.getMessage("darkMode");
-document.getElementById("disabledLabel").innerHTML = browser.i18n.getMessage("disabled");
+for(let label of document.getElementsByTagName("label")) {
+    label.innerHTML = browser.i18n.getMessage(label.getAttribute("for"));
+}
 
 function radioChangeHandler() {
     browser.storage.sync.set({"status": this.id}).catch(defaultErrorHandler);
 }
 
 //add click listener to the radio buttons
-document.getElementById("oldLayout").onclick = radioChangeHandler;
-document.getElementById("darkMode").onclick = radioChangeHandler;
-
-let disabledRadioButton = document.getElementById("disabled");
-disabledRadioButton.onclick = radioChangeHandler;
-
+for(let radioButton of document.getElementsByTagName("input")) {
+    radioButton.onclick = radioChangeHandler;
+}
 
 //set selected radio button
 browser.storage.sync.get("status").then(results => {
@@ -21,7 +18,7 @@ browser.storage.sync.get("status").then(results => {
     if(results.status) {
         document.getElementById(results.status).checked = true;
     } else {
-        disabledRadioButton.checked = true;
+        document.getElementById("disabled").checked = true;
     }
 }, defaultErrorHandler);
 

@@ -4,5 +4,6 @@
 
 	"oldLayout" : {"message": "Old layout"},
 	"darkMode" : {"message": "Dark mode"},
+	"normalMode" : {"message": "Normal mode"},
 	"disabled" : {"message": "Disabled"}
 }

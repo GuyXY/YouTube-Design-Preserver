@@ -1,5 +1,6 @@
 {
 	"oldLayout" : {"message": "Altes Design"},
 	"darkMode" : {"message": "Dunkles Design"},
+	"normalMode" : {"message": "Standard Design"},
 	"disabled" : {"message": "Deaktiviert"}
 }

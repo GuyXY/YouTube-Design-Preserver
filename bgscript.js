@@ -11,7 +11,12 @@ const modifiers = {
 	darkMode: {
 		orMap: new Map([["f6", 0x400]]),
 		nandMap: new Map([["f6", 0x8]])
+	},
+
+	normalMode: {
+		nandMap: new Map([["f6", 0x408]])
 	}
+
 };
 
 
@@ -70,6 +75,10 @@ const requestFilter = {
 };
 
 browser.webRequest.onBeforeRequest.addListener(details => {
+
+	if(!currentStatus || currentStatus == "disabled") {
+		return;
+	}
 
 	const url = "https://youtube.com";
 
