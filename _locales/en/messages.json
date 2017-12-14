@@ -1,6 +1,6 @@
 {
-	"extName" : {"message": "LaYouTube Restorer"},
-	"extDesc" : {"message": "Restores the old YouTube layout permanently!"},
+	"extName" : {"message": "YouTube Design Preserver"},
+	"extDesc" : {"message": "YouTube Design Preserver preserves the YouTube design that you've chosen permanently!"},
 
 	"oldLayout" : {"message": "Old layout"},
 	"darkMode" : {"message": "Dark mode"},
