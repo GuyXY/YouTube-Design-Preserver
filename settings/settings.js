@@ -6,6 +6,10 @@ for(let label of document.getElementsByTagName("label")) {
 function radioChangeHandler() {
     browser.storage.sync.set({"status": this.id}).catch(defaultErrorHandler);
 
+    if(this.id == "disabled") {
+        return;
+    }
+
     browser.cookies.getAllCookieStores().then(cookieStores => {
         for(let cookieStore of cookieStores) {
 
