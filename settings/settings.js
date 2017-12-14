@@ -5,6 +5,31 @@ for(let label of document.getElementsByTagName("label")) {
 
 function radioChangeHandler() {
     browser.storage.sync.set({"status": this.id}).catch(defaultErrorHandler);
+
+    browser.cookies.getAllCookieStores().then(cookieStores => {
+        for(let cookieStore of cookieStores) {
+
+            browser.cookies.get({
+                "url": url,
+                "name": cookieName,
+                "storeId": cookieStore.id
+            }).then(cookie => {
+        
+                //if the PREF cookie doesn't exist yet, create it!
+                if(!cookie) {
+                    cookie = {
+                        "url": url,
+                        "name": cookieName,
+                        "value": ""
+                    };
+                }
+        
+                cookie.value = patchCookie(cookie.value, this.id);
+                setCookie(cookie);
+        
+            }, defaultErrorHandler);
+        }
+    }, defaultErrorHandler);
 }
 
 //add click listener to the radio buttons
