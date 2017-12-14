@@ -1,5 +1,6 @@
 let currentStatus;
 
+const url = "https://youtube.com";
 const cookieName = "PREF";
 
 const modifiers = {
@@ -20,7 +21,10 @@ const modifiers = {
 };
 
 
-function patchCookie(cookieValue, modifierPack) {
+function patchCookie(cookieValue) {
+
+	//get current modifierPack
+	const modifierPack = modifiers[currentStatus];
 
 	//move the PREF cookie into a map object
 	let map = new Map();
@@ -74,26 +78,30 @@ const requestFilter = {
 	]
 };
 
+function setCookie(cookie) {
+
+	cookie.url = url;
+
+	delete cookie.hostOnly;
+	delete cookie.session;
+	
+	return browser.cookies.set(cookie).catch(defaultErrorHandler);
+}
+
 browser.webRequest.onBeforeRequest.addListener(details => {
 
 	if(!currentStatus || currentStatus == "disabled") {
 		return;
 	}
 
-	const url = "https://youtube.com";
-
 	browser.cookies.get({
 		"url": url,
 		"name": cookieName
 	}).then(cookie => {
 
-		cookie.url = url;
-		cookie.value = patchCookie(cookie.value, modifiers[currentStatus]);
+		cookie.value = patchCookie(cookie.value);
+		setCookie(cookie);
 
-		delete cookie.hostOnly;
-		delete cookie.session;
-		
-		browser.cookies.set(cookie).catch(defaultErrorHandler);
 	}, defaultErrorHandler);
 	
 	return {};
