@@ -1,4 +1,6 @@
 {
+	"extDesc" : {"message": "YouTube Design Preserver speichert das von Ihnen gewählte YouTube-Design dauerhaft!"},
+
 	"oldLayout" : {"message": "Altes Design"},
 	"darkMode" : {"message": "Dunkles Design"},
 	"normalMode" : {"message": "Standard Design"},
