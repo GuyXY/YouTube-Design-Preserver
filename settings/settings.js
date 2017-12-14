@@ -21,10 +21,3 @@ browser.storage.sync.get("status").then(results => {
         document.getElementById("disabled").checked = true;
     }
 }, defaultErrorHandler);
-
-//apply css so that the labels are on the right side of the radio buttons
-var fileref = document.createElement("link");
-fileref.rel = "stylesheet";
-fileref.type = "text/css";
-fileref.href = "settings-ltr.css";
-document.getElementsByTagName("head")[0].appendChild(fileref);
