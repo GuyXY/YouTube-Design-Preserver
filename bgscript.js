@@ -99,6 +99,15 @@ browser.webRequest.onBeforeRequest.addListener(details => {
 		"name": cookieName
 	}).then(cookie => {
 
+		//if the PREF cookie doesn't exist yet, create it!
+		if(!cookie) {
+			cookie = {
+				"url": url,
+				"name": cookieName,
+				"value": ""
+			};
+		}
+
 		cookie.value = patchCookie(cookie.value);
 		setCookie(cookie);
 
