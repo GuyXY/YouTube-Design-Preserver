@@ -5,11 +5,7 @@ const cookieName = "PREF";
 const modifiers = {
 	
 	oldLayout: {
-		orMap: new Map([
-			["f1", 0x50000000],
-			["f6", 0x8],
-			["f5", 0x30]
-		])
+		orMap: new Map([["f6", 0x8]])
 	},
 	
 	darkMode: {
