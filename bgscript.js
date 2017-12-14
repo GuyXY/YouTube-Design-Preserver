@@ -61,37 +61,31 @@ browser.storage.onChanged.addListener((changes, areaName) => {
 	}
 });
 
-browser.webRequest.onBeforeSendHeaders.addListener(details => {
 
-	if(!currentStatus || currentStatus == "disabled") {
-		return;
-	}
-
-	//get the cookie header
-	let header = details.requestHeaders.find(header => header.name == "Cookie");
-
-	//create an array of all the cookies
-	let cookies = header.value.split("; ");
-
-	//get the original PREF cookie value and remove it from the cookies array
-	let origPrefValue = "";
-	for(let i = 0; i < cookies.length; ++i) {
-		if(cookies[i].startsWith(`${cookieName}=`)) {
-			origPrefValue = cookies[i].split(/=(.*)/)[1];
-			cookies.splice(i, 1);
-			break;
-		}
-	}
-
-	//add the patched PREF cookie to the cookies array
-	cookies.push(`${cookieName}=${patchCookie(origPrefValue, modifiers[currentStatus])}`);
-
-	//apply the adjusted cookie array
-	header.value = cookies.join("; ");
-	return {"requestHeaders": details.requestHeaders};
-}, {
+const requestFilter = {
 	"urls": [
 		"*://youtube.com/*",
 		"*://www.youtube.com/*"
 	]
-}, ["blocking", "requestHeaders"]);
+};
+
+browser.webRequest.onBeforeRequest.addListener(details => {
+
+	const url = "https://youtube.com";
+
+	browser.cookies.get({
+		"url": url,
+		"name": cookieName
+	}).then(cookie => {
+
+		cookie.url = url;
+		cookie.value = patchCookie(cookie.value, modifiers[currentStatus]);
+
+		delete cookie.hostOnly;
+		delete cookie.session;
+		
+		browser.cookies.set(cookie).catch(defaultErrorHandler);
+	}, defaultErrorHandler);
+	
+	return {};
+}, requestFilter, ["blocking"]);
