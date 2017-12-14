@@ -4,7 +4,7 @@ document.getElementById("darkModeLabel").innerHTML = browser.i18n.getMessage("da
 document.getElementById("disabledLabel").innerHTML = browser.i18n.getMessage("disabled");
 
 function radioChangeHandler() {
-    browser.storage.sync.set({"status": this.id});
+    browser.storage.sync.set({"status": this.id}).catch(defaultErrorHandler);
 }
 
 //add click listener to the radio buttons
@@ -23,9 +23,7 @@ browser.storage.sync.get("status").then(results => {
     } else {
         disabledRadioButton.checked = true;
     }
-}, errorMessage => {
-    console.error(errorMessage);
-});
+}, defaultErrorHandler);
 
 //apply css so that the labels are on the right side of the radio buttons
 var fileref = document.createElement("link");
