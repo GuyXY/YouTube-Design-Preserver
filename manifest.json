@@ -19,8 +19,6 @@
 		"*://youtube.com/*",
 		"*://www.youtube.com/*",
 		
-		"webRequest",
-		"webRequestBlocking",
 		"cookies",
 
 		"storage"
