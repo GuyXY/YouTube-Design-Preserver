@@ -115,3 +115,14 @@ browser.webRequest.onBeforeRequest.addListener(details => {
 	
 	return {};
 }, requestFilter, ["blocking"]);
+
+browser.cookies.onChanged.addListener(changedInfo => {
+	let cookie = changedInfo.cookie;
+	if(cookie.name == cookieName && changedInfo.cause != "overwrite") {
+		const patchedCookieValue = patchCookie(cookie.value);
+		if(cookie.value != patchedCookieValue) {
+			cookie.value = patchedCookieValue;
+			setCookie(cookie);
+		}
+	}
+});
