@@ -1,71 +1,88 @@
-const cookieName = "PREF";
-const url = "https://youtube.com";
+const URL = "https://youtube.com";
+const COOKIE_NAME = "PREF";
+const MAX_DATE = 8640000000000;
+
+function isDisabled(status) {
+    return !status || status == "disabled";
+}
 
 function defaultErrorHandler(errorMessage) {
     console.trace(errorMessage);
 }
 
-const modifiers = {
-	
-	oldLayout: {
-		orMap: new Map([["f6", 0x8]])
-	},
-	
-	darkMode: {
-		orMap: new Map([["f6", 0x400]]),
-		nandMap: new Map([["f6", 0x8]])
-	},
-
-	normalMode: {
-		nandMap: new Map([["f6", 0x408]])
-	}
-
-};
-
-
 function patchCookie(cookieValue, status) {
-
-	//get current modifierPack
-	const modifierPack = modifiers[status];
 
 	//move the PREF cookie into a map object
 	let map = new Map();
-	if(cookieValue != "") {
+	if(cookieValue) {
 		for(let param of cookieValue.split("&")) {
 			let paramPart = param.split("=");
-			map.set(paramPart[0], parseInt(paramPart[1], 16));
+			map.set(paramPart[0], paramPart[1]);
 		}
 	}
 
-	//patch the values that need patching
-	if(modifierPack.orMap) {
-		for(let key of modifierPack.orMap.keys()) {
-			map.set(key, map.get(key) | modifierPack.orMap.get(key));
-		}
-	}
-
-	if(modifierPack.nandMap) {
-		for(let key of modifierPack.nandMap.keys()) {
-			map.set(key, map.get(key) & ~modifierPack.nandMap.get(key));
-		}
+	switch(status) {
+		case "oldLayout":
+			map.set("f6", 8);
+			break;
+		case "darkMode":
+			map.set("f6", 400);
+			break;
+		case "normalMode":
+			map.delete("f6");
 	}
 	
 	//transform the map into an array of "key=value" strings
 	let paramArray = [];
 	for(let param of map) {
-		paramArray.push(`${param[0]}=${param[1].toString(16)}`);
+		paramArray.push(`${param[0]}=${param[1]}`);
 	}
 
-	//remove params with zero as value and join the array back to a single string with "&" characters
-	return paramArray.filter(param => !param.endsWith("=0")).join("&");
+	//join the array back to a single string with "&" characters
+	return paramArray.join("&");
 }
 
-function setCookie(cookie) {
-    
-    cookie.url = url;
+function setPrefCookie(cookie, status, forceSet) {
 
-    delete cookie.hostOnly;
-    delete cookie.session;
+	if(isDisabled(status)) return;	
+
+	delete cookie.hostOnly;
+	delete cookie.session;
+	
+	cookie.url = URL;
+	cookie.expirationDate = MAX_DATE;
+
+	const patchedValue = patchCookie(cookie.value, status);
+	if(forceSet || cookie.value != patchedValue) {
+		cookie.value = patchedValue;
+		browser.cookies.set(cookie).then(() => {
+			console.log(`updated ${cookie.name} cookie to ${status} (${cookie.value})`);
+		}, defaultErrorHandler);
+	}
     
-    return browser.cookies.set(cookie).catch(defaultErrorHandler);
+}
+
+function createPrefCookie(storeId) {
+	return {
+		"url": URL,
+		"name": COOKIE_NAME,
+		"storeId": storeId
+	};
+}
+
+function setPrefCookies(status) {
+	browser.cookies.getAllCookieStores().then(cookieStores => {
+		for(let cookieStore of cookieStores) {
+			browser.cookies.get(createPrefCookie(cookieStore.id)).then(cookie => {
+				
+				//if the PREF cookie doesn't exist yet, create it!
+				if(!cookie) {
+					cookie = createPrefCookie(cookieStore.id);
+					cookie.domain = ".youtube.com"
+				}
+			
+				setPrefCookie(cookie, status);
+			}, defaultErrorHandler);
+		}
+	}, defaultErrorHandler);
 }
