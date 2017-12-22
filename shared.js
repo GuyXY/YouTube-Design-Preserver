@@ -1,5 +1,6 @@
 const URL = "https://youtube.com";
-const COOKIE_NAME = "PREF";
+const PREF_COOKIE_NAME = "PREF";
+const VISITOR_COOKIE_NAME = "VISITOR_INFO1_LIVE";
 const MAX_DATE = 8640000000000;
 
 function isDisabled(status) {
@@ -44,8 +45,8 @@ function patchCookie(cookieValue, status) {
 
 function setPrefCookie(cookie, status, forceSet) {
 
-	if(isDisabled(status)) return;	
-
+	if(isDisabled(status)) return;
+	
 	delete cookie.hostOnly;
 	delete cookie.session;
 	
@@ -56,28 +57,42 @@ function setPrefCookie(cookie, status, forceSet) {
 	if(forceSet || cookie.value != patchedValue) {
 		cookie.value = patchedValue;
 		browser.cookies.set(cookie).then(() => {
-			console.log(`updated ${cookie.name} cookie to ${status} (${cookie.value})`);
+			console.log(`updated ${cookie.name} cookie to ${status} (${JSON.stringify(cookie)})`);
 		}, defaultErrorHandler);
 	}
     
 }
 
-function createPrefCookie(storeId) {
-	return {
-		"url": URL,
-		"name": COOKIE_NAME,
-		"storeId": storeId
-	};
+function createCookieInfo(details) {
+
+	for(let property of Object.keys(details)) {
+		if(["url", "name", "storeId"].indexOf(property) == -1) {
+			delete details[property];
+		}
+	}
+
+	if(!details.url) {
+		details.url = URL;
+	}
+
+	return details;
 }
 
 function setPrefCookies(status) {
 	browser.cookies.getAllCookieStores().then(cookieStores => {
+
 		for(let cookieStore of cookieStores) {
-			browser.cookies.get(createPrefCookie(cookieStore.id)).then(cookie => {
+
+			let cookieInfo = createCookieInfo({
+				"name": PREF_COOKIE_NAME,
+				"storeId": cookieStore.id
+			});
+
+			browser.cookies.get(cookieInfo).then(cookie => {
 				
 				//if the PREF cookie doesn't exist yet, create it!
 				if(!cookie) {
-					cookie = createPrefCookie(cookieStore.id);
+					cookie = cookieInfo;
 					cookie.domain = ".youtube.com"
 				}
 			
