@@ -1,4 +1,4 @@
-//as soon as the add-on gets startet, it's going to patch the PREF cookie
+//as soon as the add-on gets started, it's going to patch the PREF cookie
 (async function() {
 	setPrefCookies((await browser.storage.sync.get("status")).status);
 })();
