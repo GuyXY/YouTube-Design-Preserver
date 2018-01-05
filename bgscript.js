@@ -41,15 +41,7 @@ browser.runtime.onInstalled.addListener(async function(details) {
 });
 
 //as soon as the add-on gets started, it's going to patch the PREF cookie
-(async function() {
-	setPrefCookies((await browser.storage.sync.get("status")).status);
-})();
+setPrefCookies();
 
 //automatically patch the PREF cookie as soon as it gets changed
-browser.cookies.onChanged.addListener(async function(changedInfo) {
-	let {cookie} = changedInfo;
-
-	if(cookie.name == PREF_COOKIE_NAME && changedInfo.cause != "overwrite") {
-		setPrefCookie(cookie, (await browser.storage.sync.get("status")).status, changedInfo.removed);
-	}
-});
+setAutoCookiePatcher(cookieInfo, patcher);

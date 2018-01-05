@@ -3,10 +3,9 @@ for(let label of document.getElementsByTagName("label")) {
     label.innerHTML = browser.i18n.getMessage(label.getAttribute("for"));
 }
 
-function radioChangeHandler() {
-    browser.storage.sync.set({"status": this.id}).then(() => {
-        setPrefCookies(this.id);
-    }, defaultErrorHandler);
+async function radioChangeHandler() {
+    await browser.storage.sync.set({"status": this.id});
+    setPrefCookies();
 }
 
 //add click listener to the radio buttons

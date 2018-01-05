@@ -12,7 +12,7 @@
 	},
 	
 	"background": {
-		"scripts": ["shared.js", "bgscript.js"]
+		"scripts": ["cookie.js", "shared.js", "bgscript.js"]
 	},
 	
 	"permissions": [
