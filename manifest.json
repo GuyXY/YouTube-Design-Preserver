@@ -12,7 +12,7 @@
 	},
 	
 	"background": {
-		"scripts": ["cookie.js", "shared.js", "bgscript.js"]
+		"scripts": ["lib/browser-polyfill.min.js", "lib/cookie.js", "shared.js", "bgscript.js"]
 	},
 	
 	"permissions": [
