@@ -22,7 +22,9 @@ async function patcher(cookieValue) {
 		}
 	}
 
-	switch(await browser.storage.sync.get("status")) {
+	let {status} = await browser.storage.sync.get("status");
+
+	switch(status) {
 		case "oldLayout":
 			map.set("f6", 8);
 			break;
