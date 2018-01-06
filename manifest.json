@@ -8,7 +8,8 @@
 	
 	"icons": {
 		"48": "icons/icon48.png",
-		"96": "icons/icon96.png"
+		"96": "icons/icon96.png",
+		"128": "icons/icon128.png"
 	},
 	
 	"background": {
@@ -27,7 +28,8 @@
 	"browser_action": {
 		"default_icon": {
 			"48": "icons/icon48.png",
-			"96": "icons/icon96.png"
+			"96": "icons/icon96.png",
+			"128": "icons/icon128.png"			
 		},
 		"default_popup": "settings/settings.html"
 	},
