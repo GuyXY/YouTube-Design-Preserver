@@ -14,7 +14,7 @@
 	},
 	
 	"background": {
-		"scripts": ["lib/browser-polyfill.min.js", "lib/cookie.js", "shared.js", "bgscript.js"]
+		"scripts": ["lib/cookie.js", "shared.js", "bgscript.js"]
 	},
 	
 	"permissions": [
@@ -38,10 +38,6 @@
 
 	"options_ui": {
 		"page": "settings/settings.html"
-	},
-
-	"applications": {
-		"gecko": {"id": "{5b7175f9-183b-4421-b105-82ef7ef426d0}"}
 	}
 	
 }
