@@ -21,3 +21,10 @@ browser.storage.sync.get("status").then(results => {
         document.getElementById("disabled").checked = true;
     }
 }, defaultErrorHandler);
+
+document.getElementsByTagName("button")[0].onclick = async function() {
+    await removeCookies({
+        "url": URL,
+        "name": VISITOR_COOKIE_NAME
+    });
+}
