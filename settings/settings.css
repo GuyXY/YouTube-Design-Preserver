@@ -1,1 +1,12 @@
-* { white-space: nowrap; }
+* {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+body {
+    margin-left: 0;
+    margin-right: 0;
+}
+div {
+    margin-right: 10pt;
+}

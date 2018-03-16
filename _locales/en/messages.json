@@ -1,8 +1,11 @@
 {
-	"extDesc" : {"message": "YouTube Design Preserver preserves the YouTube design that you've chosen permanently!"},
+	"extDesc":		{"message": "YouTube Design Preserver preserves the YouTube design that you've chosen permanently!"},
 
-	"oldLayout" : {"message": "Old layout"},
-	"darkMode" : {"message": "Dark mode"},
-	"normalMode" : {"message": "Normal mode"},
-	"disabled" : {"message": "Disabled"}
+	"oldLayout":	{"message": "Old layout"},
+	"darkMode":		{"message": "Dark mode"},
+	"normalMode":	{"message": "Normal mode"},
+	"disabled":		{"message": "Disabled"},
+
+	"notWorking":	{"message": "Not working?"},
+	"fixIt":		{"message": "Fix it!"}
 }

@@ -1,8 +1,11 @@
 {
-	"extDesc" : {"message": "YouTube Design Preserver speichert das von Ihnen gewählte YouTube-Design dauerhaft!"},
+	"extDesc":		{"message": "YouTube Design Preserver speichert das von Ihnen gewählte YouTube-Design dauerhaft!"},
 
-	"oldLayout" : {"message": "Altes Design"},
-	"darkMode" : {"message": "Dunkles Design"},
-	"normalMode" : {"message": "Standard Design"},
-	"disabled" : {"message": "Deaktiviert"}
+	"oldLayout":	{"message": "Altes Design"},
+	"darkMode":		{"message": "Dunkles Design"},
+	"normalMode":	{"message": "Standard Design"},
+	"disabled":		{"message": "Deaktiviert"},
+
+	"notWorking":	{"message": "Funktioniert etwas nicht?"},
+	"fixIt":		{"message": "Beheben!"}
 }

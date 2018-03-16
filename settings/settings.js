@@ -22,9 +22,15 @@ browser.storage.sync.get("status").then(results => {
     }
 }, defaultErrorHandler);
 
-document.getElementsByTagName("button")[0].onclick = async function() {
+//init "fix it" button
+let fixItButton = document.getElementsByTagName("button")[0];
+fixItButton.innerHTML = browser.i18n.getMessage("fixIt");
+fixItButton.onclick = async function() {
     await removeCookies({
         "url": URL,
         "name": VISITOR_COOKIE_NAME
     });
 }
+
+//init "not working" text
+document.getElementsByTagName("div")[0].innerHTML = browser.i18n.getMessage("notWorking");
