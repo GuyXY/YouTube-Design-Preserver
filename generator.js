@@ -10,14 +10,19 @@ const Promisified = {
     writeFile: util.promisify(fs.writeFile)
 };
 
+//a quick and dirty deep copy function. Avoid at all cost for objects with functions or date keys
+function deepCopy(object) {
+    return JSON.parse(JSON.stringify(object));
+}
+
 (async function() {
 
     let manifest = JSON.parse(await Promisified.readFile("manifest.json"));
 
-    let firefoxManifest = Object.assign({}, manifest);
+    let firefoxManifest = deepCopy(manifest);
     firefoxManifest.applications = {"gecko": {"id": "{5b7175f9-183b-4421-b105-82ef7ef426d0}"}};
 
-    let chromeBasedManifest = Object.assign({}, manifest);
+    let chromeBasedManifest = deepCopy(manifest);
     chromeBasedManifest.background.scripts.unshift("lib/browser-polyfill.min.js");
 
 
