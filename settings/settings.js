@@ -4,7 +4,7 @@ for(let label of document.getElementsByTagName("label")) {
 }
 
 async function radioChangeHandler() {
-    await browser.storage.sync.set({"status": this.id});
+    await (await getStorage()).set({"status": this.id});
     setPrefCookies();
 }
 
@@ -14,13 +14,15 @@ for(let radioButton of document.getElementsByTagName("input")) {
 }
 
 //set selected radio button
-browser.storage.sync.get("status").then(results => {
-    if(results.status) {
-        document.getElementById(results.status).checked = true;
-    } else {
-        document.getElementById("disabled").checked = true;
-    }
-}, defaultErrorHandler);
+(async function() {
+    (await getStorage()).get("status").then(results => {
+        if(results.status) {
+            document.getElementById(results.status).checked = true;
+        } else {
+            document.getElementById("disabled").checked = true;
+        }
+    }, defaultErrorHandler);
+})();
 
 //init "fix it" button
 let fixItButton = document.getElementsByTagName("button")[0];
