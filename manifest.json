@@ -14,7 +14,7 @@
 	},
 	
 	"background": {
-		"scripts": ["lib/cookie.js", "shared.js", "bgscript.js"]
+		"scripts": ["lib/cookie.js", "lib/common.js", "shared.js", "bgscript.js"]
 	},
 	
 	"permissions": [
