@@ -7,10 +7,6 @@ let cookieInfo = {
 	"url": URL
 };
 
-function defaultErrorHandler(errorMessage) {
-    console.trace(errorMessage);
-}
-
 async function patcher(cookieValue) {
 
 	//move the PREF cookie into a map object

@@ -15,13 +15,12 @@ for(let radioButton of document.getElementsByTagName("input")) {
 
 //set selected radio button
 (async function() {
-    (await getStorage()).get("status").then(results => {
-        if(results.status) {
-            document.getElementById(results.status).checked = true;
-        } else {
-            document.getElementById("disabled").checked = true;
-        }
-    }, defaultErrorHandler);
+    let results = await (await getStorage()).get("status");
+    if(results.status) {
+        document.getElementById(results.status).checked = true;
+    } else {
+        document.getElementById("disabled").checked = true;
+    }
 })();
 
 //init "fix it" button
