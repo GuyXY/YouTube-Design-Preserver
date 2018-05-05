@@ -7,6 +7,7 @@ YouTube Design Preserver is a browser extension that allows you to choose betwee
 Links
 ------
 https://addons.mozilla.org/en-US/firefox/addon/youtube-design-preserver/
+
 https://addons.opera.com/en/extensions/details/youtube-design-preserver/
 
 Build
