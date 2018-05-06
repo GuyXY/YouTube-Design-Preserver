@@ -1,2 +1,0 @@
-You will need the following packages to build this project:
-zip nodejs npm
