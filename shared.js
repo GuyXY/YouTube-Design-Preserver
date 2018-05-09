@@ -18,7 +18,7 @@ async function patcher(cookieValue) {
 		}
 	}
 
-	let {status} = await (await getStorage()).get("status");
+	let {status} = await getStorage().get("status");
 
 	switch(status) {
 		case "oldLayout":

@@ -4,7 +4,7 @@ for(let label of document.getElementsByTagName("label")) {
 }
 
 async function radioChangeHandler() {
-    await (await getStorage()).set({"status": this.id});
+    await getStorage().set({"status": this.id});
     setPrefCookies();
 }
 
@@ -15,7 +15,7 @@ for(let radioButton of document.getElementsByTagName("input")) {
 
 //set selected radio button
 (async function() {
-    let results = await (await getStorage()).get("status");
+    let results = await getStorage().get("status");
     if(results.status) {
         document.getElementById(results.status).checked = true;
     } else {
