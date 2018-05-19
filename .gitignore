@@ -1,7 +1,2 @@
-releases/
-gen/
-node_modules/
+dist/
 webextension-polyfill/
-firefox.zip
-chromeBased.zip
-package-lock.json
