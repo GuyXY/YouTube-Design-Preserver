@@ -1,4 +1,4 @@
-![alt text](https://github.com/GuyXY/YouTube-Design-Preserver/raw/master/icons/icon64.png) 
+![alt text](https://github.com/GuyXY/YouTube-Design-Preserver/raw/master/src/icons/icon64.png) 
 
 YouTube Design Preserver
 ======
