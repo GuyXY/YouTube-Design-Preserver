@@ -1,2 +1,3 @@
 dist/
-webextension-polyfill/
+tmp/
+node_modules/

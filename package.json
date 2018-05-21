@@ -1,0 +1,25 @@
+{
+  "name": "youtube-design-preserver",
+  "version": "2.2.0",
+  "description": "YouTube Design Preserver is a browser extension that allows you to choose between the old, dark or normal YouTube design and preserve it permanently.",
+  "dependencies": {
+    "webext-common.js": "^2.0.1",
+    "webext-cookie.js": "^1.1.3",
+    "webextension-polyfill": "^0.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuyXY/YouTube-Design-Preserver.git"
+  },
+  "author": "GuyXY",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/GuyXY/YouTube-Design-Preserver/issues"
+  },
+  "homepage": "https://github.com/GuyXY/YouTube-Design-Preserver#readme"
+}

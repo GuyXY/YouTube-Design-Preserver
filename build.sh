@@ -5,31 +5,23 @@ set -e
 
 # Variables
 DIST_DIR=$PWD/dist
-WEBEXT_POLYFILL=$PWD/webextension-polyfill/dist/browser-polyfill.min.js
 
-# cleanup dist directory and recreate the needed directories
-rm -rf $DIST_DIR
-mkdir -p $DIST_DIR/firefox $DIST_DIR/chrome
+# reset dist and tmp directories
+rm -rf $DIST_DIR tmp
+mkdir -p $DIST_DIR
 
-# copy the source files into the firefox and chrome dist folders
-cp -r src/. $DIST_DIR/firefox/
-cp -r src/. $DIST_DIR/chrome/
+# copy src directory into tmp and add lib files
+cp -r src tmp
+mkdir -p tmp/lib
+cp node_modules/webext-common.js/common.js tmp/lib/
+cp node_modules/webext-cookie.js/cookie.js tmp/lib/
 
-# if the webextension polyfill is not yet initialized, do it now
-if [ ! -e $WEBEXT_POLYFILL ]; then
-
-	git clone https://github.com/mozilla/webextension-polyfill
-	cd webextension-polyfill
-	
-	npm install
-	npm run build
-	
-	cd ..
-
-fi
+# copy tmp into the firefox and chrome dist directories
+cp -r tmp $DIST_DIR/firefox
+cp -r tmp $DIST_DIR/chrome
 
 # add the webextension polyfill for all chromium based browsers
-cp webextension-polyfill/dist/browser-polyfill.min.js $DIST_DIR/chrome/lib/
+cp node_modules/webextension-polyfill/dist/browser-polyfill.min.js $DIST_DIR/chrome/lib/
 
 # patch the manifest files accordingly
 jq -c '. + {"applications": {"gecko": {"id": "{5b7175f9-183b-4421-b105-82ef7ef426d0}"}}}' < manifest.json > $DIST_DIR/firefox/manifest.json

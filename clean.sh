@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf dist webextension-polyfill
+rm -rf dist tmp node_modules
