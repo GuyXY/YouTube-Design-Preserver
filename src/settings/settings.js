@@ -1,6 +1,6 @@
 //set the labels values
 for(let label of document.getElementsByTagName("label")) {
-    label.innerHTML = browser.i18n.getMessage(label.getAttribute("for"));
+    label.innerText = browser.i18n.getMessage(label.getAttribute("for"));
 }
 
 async function radioChangeHandler() {
@@ -25,7 +25,7 @@ for(let radioButton of document.getElementsByTagName("input")) {
 
 //init "fix it" button
 let fixItButton = document.getElementsByTagName("button")[0];
-fixItButton.innerHTML = browser.i18n.getMessage("fixIt");
+fixItButton.innerText = browser.i18n.getMessage("fixIt");
 fixItButton.onclick = async function() {
     await removeCookies({
         "url": URL,
