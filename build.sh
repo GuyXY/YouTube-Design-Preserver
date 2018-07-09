@@ -24,7 +24,7 @@ cp -r tmp $DIST_DIR/chrome
 cp node_modules/webextension-polyfill/dist/browser-polyfill.min.js $DIST_DIR/chrome/lib/
 
 # patch the manifest files accordingly
-jq -c '. + {"applications": {"gecko": {"id": "{5b7175f9-183b-4421-b105-82ef7ef426d0}"}}}' < manifest.json > $DIST_DIR/firefox/manifest.json
+jq -sc add firefox.json manifest.json > $DIST_DIR/firefox/manifest.json
 jq -c '.background.scripts |= ["lib/browser-polyfill.min.js"] + .' < manifest.json > $DIST_DIR/chrome/manifest.json
 
 # add an include for the webextension polyfill to the settings html file
