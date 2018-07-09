@@ -34,4 +34,4 @@ fixItButton.onclick = async function() {
 }
 
 //init "not working" text
-document.getElementsByTagName("div")[0].innerHTML = browser.i18n.getMessage("notWorking");
+document.getElementsByTagName("div")[0].innerText = browser.i18n.getMessage("notWorking");
