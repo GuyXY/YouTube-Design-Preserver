@@ -23,12 +23,19 @@ cp -r tmp $DIST_DIR/chrome
 # add the webextension polyfill for all chromium based browsers
 cp node_modules/webextension-polyfill/dist/browser-polyfill.min.js $DIST_DIR/chrome/lib/
 
+# use babel to make the add-on compatible with older firefox versions
+./node_modules/babel-cli/bin/babel.js --out-dir $DIST_DIR/firefox $DIST_DIR/firefox
+cp node_modules/babel-polyfill/dist/polyfill.min.js $DIST_DIR/firefox/lib/babel-polyfill.min.js
+
 # patch the manifest files accordingly
-jq -sc add firefox.json manifest.json > $DIST_DIR/firefox/manifest.json
+jq -sc add firefox.json manifest.json | jq -c '.background.scripts |= ["lib/babel-polyfill.min.js"] + .' > $DIST_DIR/firefox/manifest.json
 jq -c '.background.scripts |= ["lib/browser-polyfill.min.js"] + .' < manifest.json > $DIST_DIR/chrome/manifest.json
 
 # add an include for the webextension polyfill to the settings html file
 sed -i '/<\/head>/s|^|<script src="/lib/browser-polyfill.min.js"></script>|' $DIST_DIR/chrome/settings/settings.html
+
+# add an include for the babel polyfill to the settings html file
+sed -i '/<\/head>/s|^|<script src="/lib/babel-polyfill.min.js"></script>|' $DIST_DIR/firefox/settings/settings.html
 
 # create the final zip files for every browser
 cd $DIST_DIR/firefox;   zip -r $DIST_DIR/firefox.zip *
