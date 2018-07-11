@@ -23,3 +23,7 @@ npm run build
 ```
 
 The resulting files are going be in the `dist` directory. Note that the `chrome` files will work with all chromium based browsers.
+
+Known limitations
+------
+YouTube Design Preserver will not work in private browsing mode for Firefox versions older than 52.
