@@ -21,12 +21,10 @@ async function patcher(cookieValue) {
 	let {status} = await getStorage().get("status");
 
 	switch(status) {
-		case "oldLayout":
-			map.set("f6", 8);
-			break;
 		case "darkMode":
 			map.set("f6", 400);
 			break;
+		case "oldLayout":
 		case "normalMode":
 			map.delete("f6");
 	}

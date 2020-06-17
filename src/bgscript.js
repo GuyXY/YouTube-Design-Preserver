@@ -40,6 +40,20 @@ browser.runtime.onInstalled.addListener(async function(details) {
 	}
 });
 
+//automatically replace the User-Agent HTTP header with "Google Bot" for all requests that go to youtube.com if "oldLayout" is enabled 
+browser.webRequest.onBeforeSendHeaders.addListener(async details => {
+	let {status} = await getStorage().get("status");
+	if(status == "oldLayout") {
+		for(let header of details.requestHeaders) {
+			if(header.name.toLowerCase() == "user-agent") {
+				header.value = "Google Bot";
+			}
+		}
+		return {"requestHeaders": details.requestHeaders};
+	}
+	return {};
+}, {"urls": ["<all_urls>"]}, ["blocking", "requestHeaders"]);
+
 //as soon as the add-on gets started, it's going to patch the PREF cookie
 setPrefCookies();
 
